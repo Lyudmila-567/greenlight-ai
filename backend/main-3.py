@@ -26,7 +26,7 @@ os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "TRUE"
 os.environ["GOOGLE_CLOUD_PROJECT"] = "gen-lang-client-0594850756"
 os.environ["GOOGLE_CLOUD_LOCATION"] = "global"
 os.environ["GEMINI_MODEL"] = "gemini-3.1-flash-lite"
-os.environ.setdefault["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\HP\Desktop\Greenlight_AI\backend\gen-lang-client-0594850756-913e146a877d.json"
+os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", r"C:\Users\HP\Desktop\Greenlight_AI\backend\gen-lang-client-0594850756-913e146a877d.json")
 print("FILE EXISTS:", os.path.exists(os.environ["GOOGLE_APPLICATION_CREDENTIALS"]))
 print("DEBUG VERTEX:", os.environ.get("GOOGLE_GENAI_USE_VERTEXAI"), os.environ.get("GOOGLE_CLOUD_PROJECT"), os.environ.get("GOOGLE_CLOUD_LOCATION"))
 
