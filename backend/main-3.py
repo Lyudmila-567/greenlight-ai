@@ -391,7 +391,11 @@ async def boardroom(req: BoardroomRequest):
         rewrite_count=rewrite_count,
     )
 
-
+@app.get("/", response_class=HTMLResponse)
+async def serve_frontend():
+    with open("frontend.html", "r", encoding="utf-8") as f:
+        return f.read()
+      
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
