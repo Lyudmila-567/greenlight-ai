@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenlight AI — Autonomous B2B Media Incubator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .agent-bubble { animation: fadeInUp 0.4s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <header class="border-b border-slate-800 pb-6 mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">GREENLIGHT AI</h1>
+                <p class="text-slate-400 text-sm mt-1">Autonomous Multi-Agent B2B Film Production Incubator</p>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 px-4 py-2 rounded-lg text-xs">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Pipeline Active</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-1 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl h-fit">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-emerald-400">🎛️ Project Parameters</h2>
+
+                <form id="boardroomForm" class="space-y-6">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <label class="text-slate-300">Target Budget ($)</label>
+                            <span id="budgetValue" class="font-mono text-emerald-400 font-bold">45,000,000</span>
+                        </div>
+                        <input type="range" id="budget_usd" min="10000" max="150000000" step="50000" value="45000000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <label class="text-slate-300">Expected Revenue ($)</label>
+                            <span id="revenueValue" class="font-mono text-teal-400 font-bold">120,000,000</span>
+                        </div>
+                        <input type="range" id="expected_revenue" min="50000" max="500000000" step="100000" value="120000000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-2">Film Genre</label>
+                        <select id="genre" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                            <option value="Sci-Fi">Sci-Fi (Science Fiction)</option>
+                            <option value="Horror">Horror / Thriller</option>
+                            <option value="Action">Action / Adventure</option>
+                            <option value="Drama">Drama / Cinematic</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm text-slate-300 mb-2">Target Audience</label>
+                        <select id="target_audience" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                            <option value="Gen-Z">Gen-Z (Digital Natives)</option>
+                            <option value="General Audience">General Audience (Mass Market)</option>
+                            <option value="Cinephiles">Cinephiles / Film Critics</option>
+                        </select>
+                    </div>
+
+                    <button type="button" id="submitBtn" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-bold py-3 px-4 rounded-lg cursor-pointer text-center font-mono">
+                        🎬 Launch AI Boardroom
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-2 space-y-8">
+
+                <div id="teaserBlock" class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl hidden">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-teal-400">🎬 Mood Teaser (Placeholder)</h3>
+                    <div class="aspect-video bg-black rounded-lg overflow-hidden border border-slate-800 flex items-center justify-center relative">
+                        <img id="teaserImage" class="w-full h-full object-cover" alt="Teaser placeholder"
+                             src="https://placehold.co/1280x720/0f172a/34d399?text=Teaser+coming+soon" />
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl flex flex-col h-[520px]">
+                    <h3 class="text-lg font-bold mb-4 border-b border-slate-800 pb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-2 text-emerald-400">💬 Boardroom Live Telemetry Stream</span>
+                        <span id="pipelineStatus" class="text-xs font-mono text-slate-500">IDLE</span>
+                    </h3>
+                    <div id="chatWindow" class="flex-1 overflow-y-auto space-y-4 pr-2 text-sm scrollbar-thin">
+                        <div class="text-slate-500 italic text-center py-8">Adjust parameters on the left and deploy the boardroom conclave...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const budgetSlider = document.getElementById("budget_usd");
+        const budgetValue = document.getElementById("budgetValue");
+        const revenueSlider = document.getElementById("expected_revenue");
+        const revenueValue = document.getElementById("revenueValue");
+        const submitBtn = document.getElementById("submitBtn");
+        const statusLabel = document.getElementById("pipelineStatus");
+        const chatWindow = document.getElementById("chatWindow");
+
+        budgetSlider.addEventListener("input", () => {
+            budgetValue.textContent = Number(budgetSlider.value).toLocaleString("en-US");
+        });
+        revenueSlider.addEventListener("input", () => {
+            revenueValue.textContent = Number(revenueSlider.value).toLocaleString("en-US");
+        });
+
+        function escapeHtml(str) {
+            const div = document.createElement("div");
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function renderAgentSpeech(role, status, message, borderColorClass) {
+            const bubble = document.createElement("div");
+            bubble.className = "agent-bubble border-l-4 " + borderColorClass + " bg-slate-900/50 border border-slate-800 p-4 rounded-r-lg space-y-1 mb-4 shadow-md";
+            bubble.innerHTML = '<div class="font-bold flex justify-between text-xs text-slate-400"><span>' + escapeHtml(role) + '</span><span class="font-mono text-[10px]">' + escapeHtml(status) + '</span></div><div class="text-slate-200 leading-relaxed whitespace-pre-wrap mt-2 font-mono text-xs">' + escapeHtml(message) + '</div>';
+            chatWindow.appendChild(bubble);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        submitBtn.addEventListener("click", async () => {
+            submitBtn.disabled = true;
+            chatWindow.innerHTML = '<div class="text-emerald-400 animate-pulse text-center font-mono py-12">⏳ Contacting boardroom backend... (first request may take 30-90s if the server was asleep)</div>';
+            statusLabel.textContent = "RUNNING...";
+            statusLabel.className = "text-xs font-mono text-amber-400 font-bold";
+
+            const payload = {
+                budget_usd: parseInt(budgetSlider.value),
+                expected_revenue: parseInt(revenueSlider.value),
+                genre: document.getElementById("genre").value,
+                target_audience: document.getElementById("target_audience").value,
+            };
+
+            try {
+                const response = await fetch("/api/boardroom", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch (e) {
+                    throw new Error(`Backend returned a non-JSON response (HTTP ${response.status}).`);
+                }
+                if (!response.ok) {
+                    throw new Error(data.detail || `HTTP ${response.status}`);
+                }
+
+                chatWindow.innerHTML = "";
+
+                if (data.status === "rejected") {
+                    statusLabel.textContent = "REJECTED";
+                    statusLabel.className = "text-xs font-mono text-rose-500 font-bold";
+                    renderAgentSpeech("⚖️ Agent 1: Bob (CFO)", "REJECTED", data.reason || data.financial_analysis, "border-rose-500");
+                } else {
+                    statusLabel.textContent = "SUCCESS";
+                    statusLabel.className = "text-xs font-mono text-emerald-400 font-bold";
+                    renderAgentSpeech("⚖️ Agent 1: Bob (Financial & Data)", "APPROVED", data.financial_analysis, "border-emerald-500");
+                    renderAgentSpeech("📖 Agent 2: Narrative Architect", "READY", data.synopsis, "border-purple-500");
+                    renderAgentSpeech("🛡️ Agent 4: Bio-Feedback QA", data.qa_verdict, `Attention score: ${data.attention_score_pct}%`, "border-yellow-500");
+                    renderAgentSpeech("📈 Agent 3: Marketing & VFX", "PACKAGED", data.marketing, "border-indigo-500");
+
+                    document.getElementById("teaserBlock").classList.remove("hidden");
+                }
+
+            } catch (err) {
+                statusLabel.textContent = "ERROR";
+                statusLabel.className = "text-xs font-mono text-rose-500 font-bold";
+                chatWindow.innerHTML = '<div class="text-rose-400 font-mono p-4">❌ ' + escapeHtml(err.message) + '</div>';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
