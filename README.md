@@ -2,10 +2,6 @@
 
 A data-grounded, multi-agent AI system designed to brainstorm, refine, and validate film ideas against real-world market insights.
 
-# Greenlight AI 🎬
-
-A data-grounded, multi-agent AI system designed to brainstorm, refine, and validate film ideas against real-world market insights.
-
 ## 🔗 Project Links
 *   **Live Web MVP:** [Deploy Link on Render][https://greenlight-ai-backend.onrender.com/]
 *   **Video Demonstration:** [YouTube Presentation Link](https://youtu.be/HNYiRfVxjVo)
