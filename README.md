@@ -7,12 +7,12 @@ A data-grounded, multi-agent AI system designed to brainstorm, refine, and valid
 *   **Video Demonstration:** [YouTube Presentation Link](https://youtu.be/HNYiRfVxjVo)
 
 ## 🛠️ Built With
-![Python](https://shields.io)
-![FastAPI](https://shields.io)
-![Google Cloud](https://shields.io)
-![ClickHouse](https://shields.io)
-![Grafana](https://shields.io)
-![Pydantic](https://shields.io)
+[Python]
+[FastAPI]
+[Google Cloud]
+[ClickHouse]
+[Grafana]
+[Pydantic]
 
 *Note on Tech Stack:* Driven by the **Google GenAI SDK (Vertex AI)** for intelligent orchestration and **Model Context Protocol (MCP)** for secure data grounding.
 
