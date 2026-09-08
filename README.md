@@ -2,6 +2,24 @@
 
 A data-grounded, multi-agent AI system designed to brainstorm, refine, and validate film ideas against real-world market insights.
 
+# Greenlight AI 🎬
+
+A data-grounded, multi-agent AI system designed to brainstorm, refine, and validate film ideas against real-world market insights.
+
+## 🔗 Project Links
+*   **Live Web MVP:** [Deploy Link on Render][https://greenlight-ai-backend.onrender.com/]
+*   **Video Demonstration:** [YouTube Presentation Link](https://youtu.be/HNYiRfVxjVo)
+
+## 🛠️ Built With
+![Python](https://shields.io)
+![FastAPI](https://shields.io)
+![Google Cloud](https://shields.io)
+![ClickHouse](https://shields.io)
+![Grafana](https://shields.io)
+![Pydantic](https://shields.io)
+
+*Note on Tech Stack:* Driven by the **Google GenAI SDK (Vertex AI)** for intelligent orchestration and **Model Context Protocol (MCP)** for secure data grounding.
+
 ## 💡 Inspiration
 The core inspiration behind this project was to push technical boundaries by architecting a multi-agent AI system. 
 The goal was to design a collaborative network of **AI Agents** ($A_1, A_2, \dots, A_n$) 
